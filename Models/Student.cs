@@ -10,6 +10,6 @@
         public int? IntakeId { get; set; }
         public virtual Intake? Intake { get; set; } 
         public virtual ICollection<CourseEnrollment>? CourseEnrollments { get; set; } = new List<CourseEnrollment>();
-        public virtual ICollection<Grade>? Grades { get; set; } = new List<Grade>();
+        public virtual ICollection<Attendence>? Attendences { get; set; } = new List<Attendence>();
     }
 }

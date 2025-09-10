@@ -4,7 +4,6 @@ namespace Models
 {
     public class Schedule
     {
-        public int Id { get; set; }
         public int SectionId { get; set; }
         public int RoomId { get; set; }
         public DateTime StartDate { get; set; }

@@ -10,5 +10,6 @@
         public virtual Instructor Instructor { get; set; } = null!;
         public virtual ICollection<Attendence>? Attendences { get; set; } = new List<Attendence>();
         public virtual ICollection<Schedule>? Schedules { get; set; } = new List<Schedule>();
+        public virtual ICollection<CourseEnrollment>? CourseEnrollments { get; set; } = new List<CourseEnrollment>();
     }
 }
