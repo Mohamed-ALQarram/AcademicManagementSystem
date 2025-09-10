@@ -17,7 +17,7 @@ namespace DAL.Configurations
 
             builder.Property(x => x.Description)
                 .HasColumnType("nvarchar")
-                .HasMaxLength(255)
+                .HasMaxLength(512)
                 .IsRequired(false);
         }
     }
