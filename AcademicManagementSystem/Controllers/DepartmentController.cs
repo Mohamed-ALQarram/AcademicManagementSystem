@@ -46,7 +46,7 @@ namespace AcademicManagementSystem.Controllers
         [HttpPut]
         public IActionResult EditDepartment(Department department) 
         {
-            departmentService.UpdateDepartment(department);
+            departmentService.EditDepartment(department);
             return CreatedAtAction("GetById", department.Id);
         }
         [HttpDelete]

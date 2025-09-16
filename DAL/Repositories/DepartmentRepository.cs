@@ -10,63 +10,27 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class DepartmentRepository : SingleKeyRepository<Department>, IDepartmentRepository
     {
         private readonly AppDbContext context;
 
-        public DepartmentRepository(AppDbContext context)
+        public DepartmentRepository(AppDbContext context):base(context) 
         {
             this.context = context;
         }
-        public void Add(Department entity)
+        public Department? GettWithCourses(int id)
         {
-            context.Add(entity);
-            context.SaveChanges();
+            return context.Departments.Include(x => x.Courses).FirstOrDefault(x => x.Id == id);
         }
 
-        public void Delete(int id)
+        public Department? GetWithInstuctors(int id)
         {
-            context.Departments.Where(x => x.Id == id).ExecuteDelete();
+            return context.Departments.Include(x => x.Instructors).FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Department> GetAll()
+        public Department? GetWithIntakes(int id)
         {
-            return context.Departments.AsNoTracking();
-        }
-
-        public IEnumerable<Department> GetAllWithCourses()
-        {
-            return context.Departments.Include(x=>x.Courses).AsNoTracking();
-        }
-
-        public IEnumerable<Department> GetAllWithInstuctors()
-        {
-            return context.Departments.Include(x => x.Instructors).AsNoTracking();
-        }
-
-        public IEnumerable<Department> GetAllWithIntakes()
-        {
-            return context.Departments.Include(x => x.Intakes).AsNoTracking();
-        }
-
-        public Department GetById(int id)
-        {
-            var Dept = context.Departments.AsNoTracking().FirstOrDefault(x => x.Id == id);
-            if (Dept is null) throw new NullReferenceException("There is no Department With this Id");
-            return Dept;
-        }
-
-        public void Update(Department entity)
-        {
-            var dept = context.Departments.Find(entity.Id);
-            if (dept != null)
-            {
-                dept.Name = entity.Name;
-                dept.Description = entity.Description;
-                context.SaveChanges();
-            }
-            else
-                throw new NullReferenceException("There is no Department With this Id");
+            return context.Departments.Include(x => x.Intakes).FirstOrDefault(x => x.Id == id);
         }
     }
 

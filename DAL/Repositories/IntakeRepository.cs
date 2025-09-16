@@ -4,52 +4,20 @@ using Models;
 
 namespace DAL.Repositories
 {
-    public class IntakeRepository : IRepository<Intake>, ISingleKeyRepository<Intake>
+    public class IntakeRepository : SingleKeyRepository<Intake>, IIntakeRepository
     {
         private readonly AppDbContext context;
 
-        public IntakeRepository(AppDbContext context)
+        public IntakeRepository(AppDbContext context) : base(context)
         {
             this.context = context;
         }
+        public Intake? GetIntakeWithDepartment(int IntakeId)
+            => context.Intakes.Include(x=>x.Department).AsNoTracking().FirstOrDefault(x=>x.Id==IntakeId);
 
-        public void Add(Intake entity)
-        {
-            context.Add(entity);
-            context.SaveChanges();
-        }
+        public Intake? GetIntakeWithStudents(int IntakeId)
+            => context.Intakes.Include(x => x.Students).AsNoTracking().FirstOrDefault(x => x.Id == IntakeId);
 
-        public void Delete(int id)
-        {
-            context.Intakes.Where(x => x.Id == id).ExecuteDelete();
-        }
-
-        public IEnumerable<Intake> GetAll()
-        {
-            return context.Intakes.AsNoTracking();
-        }
-
-        public Intake GetById(int id)
-        {
-            var Intake = context.Intakes.AsNoTracking().FirstOrDefault(x => x.Id == id);
-            if (Intake == null) throw new NullReferenceException("There is no Intake With this Id");
-            return Intake;
-        }
-
-        public void Update(Intake entity)
-        {
-            var Intake = context.Intakes.Find(entity.Id);
-            if (Intake != null)
-            {
-                Intake.Name = entity.Name;
-                Intake.DepartmentId = entity.DepartmentId;
-                Intake.StartDate = entity.StartDate;
-                Intake.EndDate = entity.EndDate;
-                context.SaveChanges();
-            }
-            else
-                throw new NullReferenceException("There is no Intake With this Id");
-        }
     }
 
 

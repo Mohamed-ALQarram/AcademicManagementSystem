@@ -1,5 +1,4 @@
-﻿using Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +11,7 @@ namespace Core
         public IEnumerable<T> GetAll();
         public void Add(T entity);
         public void Update(T entity);
-    }
-    public interface IDepartmentRepository:IRepository<Department>, ISingleKeyRepository<Department>
-    {
-        public IEnumerable<Department> GetAllWithCourses();
-        public IEnumerable<Department> GetAllWithInstuctors();
-        public IEnumerable<Department> GetAllWithIntakes();
-
+        public void SaveChanges();
 
     }
-
 }

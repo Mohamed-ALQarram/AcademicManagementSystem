@@ -30,6 +30,11 @@ namespace AcademicManagementSystem
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<DepartmentService>();
 
+            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+            builder.Services.AddScoped<InstructorService>();
+            builder.Services.AddScoped(typeof(ISingleKeyRepository<>), typeof(SingleKeyRepository<>));
+            builder.Services.AddScoped(typeof(ICompositeKeyRepository<,>), typeof(CompositeKeyRepository<,>));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
