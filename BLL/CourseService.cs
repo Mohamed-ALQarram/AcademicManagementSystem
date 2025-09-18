@@ -11,20 +11,18 @@ namespace BLL
 {
     public class CourseService
     {
-        private readonly ICourseRepository courseRepo;
-        private readonly DepartmentService departmentService;
+        private readonly ISingleKeyRepository<Course> courseRepo;
+        private readonly SectionService sectionService;
         private readonly CourseEnrollmentService courseEnrollmentService;
 
-        public CourseService(ICourseRepository CourseRepo, DepartmentService departmentService, CourseEnrollmentService courseEnrollmentService)
+        public CourseService(ISingleKeyRepository<Course> CourseRepo, SectionService sectionService, CourseEnrollmentService courseEnrollmentService)
         {
             courseRepo = CourseRepo;
-            this.departmentService = departmentService;
+            this.sectionService = sectionService;
             this.courseEnrollmentService = courseEnrollmentService;
         }
         public void CreateCourse(Course course)
         {
-            var Dept = departmentService.GetById(course.DepartmentId);
-            if (Dept == null) throw new NullReferenceException($"There are no departments with this Id: {course.DepartmentId}");
             courseRepo.Add(course);
             courseRepo.SaveChanges();
 
@@ -40,24 +38,16 @@ namespace BLL
             courseRepo.Update(course);
             courseRepo.SaveChanges();
         }
-        public List<Course> GetCoursesWithinDepartment(int DeptId)
-        {
-            var Dept = departmentService.GetDepartmentWithCourses(DeptId);
-            if (Dept == null) throw new NullReferenceException($"There are no departments with this Id: {DeptId}");
-            var Courses = Dept.Courses?.ToList();
-            if (Courses != null) return Courses;
-            else return new List<Course>();
-        }
         public void DeleteCourse(int CourseId)
         {
             courseRepo.Delete(CourseId);
             courseRepo.SaveChanges();
         }
-        public Course getCourseWithSections(int CourseId)
+        public List<Section> GetCourseSections(int CourseId)
         {
-            var course = courseRepo.GetWithSections(CourseId);
-            if (course == null) throw new NullReferenceException($"There are no Courses with this Id: {CourseId}");
-            return course;
+            var Sections = sectionService.GetSectionsByCourse(CourseId);
+            if (Sections == null) throw new NullReferenceException($"There are no Courses with this Id: {CourseId}");
+            return Sections;
         }
 
         public List<Student> GetEnrolledStudents(int CourseId)

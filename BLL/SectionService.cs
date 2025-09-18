@@ -10,15 +10,15 @@ namespace BLL
 {
     public class SectionService
     {
-        private readonly ISingleKeyRepository<Section> sectionRepo;
-        private readonly CourseService courseService;
+        private readonly ISectionRepository sectionRepo;
         private readonly InstructorService instructorService;
+        private readonly ScheduleService scheduleService;
 
-        public SectionService(ISingleKeyRepository<Section> sectionRepo, CourseService courseService, InstructorService instructorService)
+        public SectionService(ISectionRepository sectionRepo, InstructorService instructorService, ScheduleService scheduleService)
         {
             this.sectionRepo = sectionRepo;
-            this.courseService = courseService;
             this.instructorService = instructorService;
+            this.scheduleService = scheduleService;
         }
         public void CreateSection(Section section)
         {
@@ -54,12 +54,38 @@ namespace BLL
             section.InstructorId = instructorId;
             sectionRepo.Update(section);
         }
+    
+        public List<Student> GetSectionStudents(int SectionId)
+        {
+            var Students = sectionRepo.GetSectionStudents(SectionId).ToList();
+            if(Students is null) return new List<Student> ();
+            return Students;
+        }
         public List<Section> GetSectionsByCourse(int CourseId)
         {
-            var Sections = courseService.getCourseWithSections(CourseId).Sections?.ToList();
-            if(Sections!= null) return Sections;
-            else 
-                return new List<Section>();
+            var sections = sectionRepo.GetSectionsByCourse(CourseId).ToList();
+            if(sections is null) return new List<Section> ();
+            return sections;
+        }
+        public List<Section> GetSectionsByStudent(int StudentId)
+        {
+            var Students = sectionRepo.GetSectionsByStudent(StudentId).ToList();
+            if(Students is null) return new List<Section> ();
+            return Students;
+        }
+        public List<Schedule> GetSectionSchedules(int SectionId)
+        {
+            return scheduleService.GetSchdulesBySection(SectionId);
+        }
+        public List<Schedule> GetSectionSchedulesWithRoom(int SectionId)
+        {
+            return scheduleService.GetSchdulesBySectionWithRoom(SectionId);
+        }
+        public List<Section> GetSectionsByInstructor(int InstructorId)
+        {
+            var sections = sectionRepo.GetSectionsByInstructor(InstructorId).ToList();
+            if (sections is null) return new List<Section>();
+            return sections;
         }
     }
 }

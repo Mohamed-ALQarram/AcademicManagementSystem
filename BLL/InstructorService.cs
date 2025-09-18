@@ -11,10 +11,14 @@ namespace BLL
     public class InstructorService
     {
         private readonly IInstructorRepository instructorRepo;
+        private readonly AttendanceService attendanceService;
+        private readonly CourseEnrollmentService courseEnrollmentService;
 
-        public InstructorService(IInstructorRepository instructorRepo)
+        public InstructorService(IInstructorRepository instructorRepo, AttendanceService attendanceService, CourseEnrollmentService courseEnrollmentService)
         {
             this.instructorRepo = instructorRepo;
+            this.attendanceService = attendanceService;
+            this.courseEnrollmentService = courseEnrollmentService;
         }
         public void AddInstructor(Instructor instructor) 
         {
@@ -46,5 +50,16 @@ namespace BLL
         return instructorRepo.GetAll().ToList();
         }
 
+        public void MarkAttendance(Attendance attendance)
+        {
+            attendanceService.CreateAttendance(attendance);
+        }
+        public void AddGrade(int studentId, int courseId, double grade)
+        {
+            var Enrollment= courseEnrollmentService.GetCourseEnrollment(studentId, courseId);
+            if (Enrollment == null) throw new NullReferenceException("Invalid Enrollment data");
+            Enrollment.Grade = grade;
+            courseEnrollmentService.EditEnrollment(Enrollment);
+        }
     }
 }

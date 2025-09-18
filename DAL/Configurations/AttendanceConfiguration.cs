@@ -4,9 +4,9 @@ using Models;
 
 namespace DAL.Configurations
 {
-    public class AttendenceConfiguration : IEntityTypeConfiguration<Attendence>
+    public class AttendanceConfiguration : IEntityTypeConfiguration<Attendance>
     {
-        public void Configure(EntityTypeBuilder<Attendence> builder)
+        public void Configure(EntityTypeBuilder<Attendance> builder)
         {
             builder.HasKey(x=>x.Id);
 

@@ -11,7 +11,7 @@
         public DateTime? HireDate { get; set; }= DateTime.UtcNow;
 
         public int DepartmentId { get; set; }
-        public virtual Department Department { get; set; } = null!;
-        public virtual ICollection<Section>? Sections { get; set; } = new List<Section>();  
+        public virtual Department? Department { get; set; }
+        public virtual ICollection<Section> Sections { get; set; } = new List<Section>();  
     }
 }

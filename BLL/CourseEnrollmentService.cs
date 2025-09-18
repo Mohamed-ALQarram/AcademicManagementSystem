@@ -60,5 +60,10 @@ namespace BLL
             if(students == null )return new List<Student>();
             return students;
         }
+        public void DeleteEnrollment(CourseEnrollmentKey Key)
+        {
+            courseEnrollRepo.Delete(Key);
+            courseEnrollRepo.SaveChanges();
+        }
     }
 }

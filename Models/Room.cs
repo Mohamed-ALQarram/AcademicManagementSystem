@@ -9,6 +9,6 @@ namespace Models
         public string? Location { get; set; }
         public int Capacity { get; set; }
         public RoomType RoomType { get; set; }
-        public virtual ICollection<Schedule>? Schedules { get; set; } = new List<Schedule>();
+        public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
     }
 }

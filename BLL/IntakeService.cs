@@ -40,13 +40,6 @@ namespace BLL
             intakeRepo.SaveChanges();
         }
 
-        public List<Intake> GetIntakesWithinDepartment(int DeptId)
-        {
-            var Intakes= departmentService.GetDepartmentWithIntakes(DeptId).Intakes?.ToList();
-            if(Intakes != null)
-                return Intakes;
-            else return new List<Intake>();
-        }
     
         public void EditIntake(Intake intake)
         {

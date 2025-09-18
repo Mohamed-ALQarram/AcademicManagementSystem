@@ -14,7 +14,7 @@ namespace DAL
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<Attendence> Attendences { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) :base(options)
         {

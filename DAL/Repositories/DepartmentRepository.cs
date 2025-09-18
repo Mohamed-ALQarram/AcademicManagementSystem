@@ -14,27 +14,27 @@ namespace DAL.Repositories
     {
         private readonly AppDbContext context;
 
-        public DepartmentRepository(AppDbContext context):base(context) 
+        public DepartmentRepository(AppDbContext context) : base(context)
         {
             this.context = context;
         }
-        public Department? GettWithCourses(int id)
-        {
-            return context.Departments.Include(x => x.Courses).FirstOrDefault(x => x.Id == id);
-        }
+        public IQueryable<Course> GetCourses(int id)
+            => context.Departments
+                          .Where(d => d.Id == id)
+                          .SelectMany(d => d.Courses ?? new List<Course>());
 
-        public Department? GetWithInstuctors(int id)
-        {
-            return context.Departments.Include(x => x.Instructors).FirstOrDefault(x => x.Id == id);
-        }
+        public IQueryable<Instructor> GetInstuctors(int id)
+        => context.Departments
+                .Where(x => x.Id == id)
+                .SelectMany(x => x.Instructors?? new List<Instructor>());
 
-        public Department? GetWithIntakes(int id)
-        {
-            return context.Departments.Include(x => x.Intakes).FirstOrDefault(x => x.Id == id);
-        }
+        public IQueryable<Intake> GetIntakes(int id)
+            => context.Departments
+                .Where(x => x.Id == id)
+                .SelectMany(x => x.Intakes ?? new List<Intake>());
+
     }
-
-
 }
+
 
 

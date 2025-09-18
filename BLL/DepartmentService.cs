@@ -35,25 +35,23 @@ namespace BLL
         {
             return departmentRepo.GetById(departmentId);
         }
-        public Department GetDepartmentWithCourses(int departmentId)
+        public List<Course> GetDepartmentCourses(int departmentId)
         {
-            var Dept= departmentRepo.GettWithCourses(departmentId);
-            if (Dept is null) throw new NullReferenceException("Invalid Id");
-            return Dept;
+            var Courses = departmentRepo.GetCourses(departmentId).ToList();
+            if (Courses is null) return new List<Course>();
+            return Courses;
         }
-        public Department GetDepartmentWithInstructors(int departmentId)
+        public List<Instructor> GetDepartmentInstructors(int departmentId)
         {
-            var Dept= departmentRepo.GetWithInstuctors(departmentId);
-            if (Dept is null) throw new NullReferenceException("Invalid Id");
-            return Dept;
-
+            var instructors= departmentRepo.GetInstuctors(departmentId).ToList();
+            if (instructors is null) return new List<Instructor>();
+            return instructors;
         }
-        public Department GetDepartmentWithIntakes(int departmentId)
+        public List<Intake> GetDepartmentIntakes(int departmentId)
         {
-            var Dept= departmentRepo.GetWithIntakes(departmentId);
-            if (Dept is null) throw new NullReferenceException("Invalid Id");
-            return Dept;
-
+            var Intakes = departmentRepo.GetIntakes(departmentId).ToList();
+            if (Intakes is null) return new List<Intake>();
+            return Intakes;
         }
     }
 
