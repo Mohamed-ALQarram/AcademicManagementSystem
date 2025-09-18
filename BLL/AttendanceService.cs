@@ -53,19 +53,19 @@ namespace BLL
             if (LateStudents ==null) return new List<Student>();
                 return LateStudents;
         }
-        public List<Student> GetPresentStudent(int SectionId)
+        public List<Student> GetPresentStudents(int SectionId)
         {
             var PresentStudents = attendanceRepo.GetPresentStudent(SectionId).ToList();
             if (PresentStudents == null) return new List<Student>();
             return PresentStudents;
         }
-        public List<Student> GetAbsentStudent(int SectionId)
+        public List<Student> GetAbsentStudents(int SectionId)
         {
             var AbsentStudent = attendanceRepo.GetAbsentStudent(SectionId).ToList();
             if (AbsentStudent == null) return new List<Student>();
             return AbsentStudent;
         }
-        public List<Student> GetExecusedStudent(int SectionId)
+        public List<Student> GetExecusedStudents(int SectionId)
         {
             var ExecusedStudent = attendanceRepo.GetExecusedStudent(SectionId).ToList();
             if (ExecusedStudent == null) return new List<Student>();

@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
         public IQueryable<Attendance> GetAllStudentAttendaces(int StudentId)
         => context.Attendances
-            .Where(x => x.StudentId == StudentId)
+            .Where(x => x.StudentId == StudentId).OrderBy(x=>x.SectionId)
             .AsNoTracking();
 
         public IQueryable<Student> GetExecusedStudent(int SectionId)

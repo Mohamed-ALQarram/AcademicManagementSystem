@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using AcademicManagementSystem.DTOs;
+using BLL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -26,6 +27,7 @@ namespace AcademicManagementSystem.Controllers
             }
             return NotFound("There are no departments yet.");
         }
+        
         [HttpGet("{Id:int}")]
         public IActionResult GetById(int Id)
         {
@@ -36,21 +38,51 @@ namespace AcademicManagementSystem.Controllers
             }
             return NotFound("Department Not Found");
         }
-        [HttpPost]
-        public IActionResult AddDepartment(Department department) 
+        
+        [HttpGet("Courses/{departmentId:int}")]
+        public ActionResult<List<Course>> GetDepartmentCourses(int departmentId)
         {
-            departmentService.AddDepartment(department);
-            return CreatedAtAction("GetById", new { Id = department .Id}, department);
+            return departmentService.GetDepartmentCourses(departmentId);
+        }
+        
+        [HttpGet("Intakes/{departmentId:int}")]
+        public ActionResult<List<Intake>> GetDepartmentIntakes(int departmentId)
+        {
+            return departmentService.GetDepartmentIntakes(departmentId);
+        }
+        
+        [HttpGet("Instructors/{departmentId:int}")]
+        public ActionResult<List<Instructor>> GetDepartmentInstructors(int departmentId)
+        {
+            return departmentService.GetDepartmentInstructors(departmentId);
+        }
+        
+        [HttpPost]
+        public ActionResult AddDepartment(CreateDepartmentDTO department) 
+        {
+
+            departmentService.AddDepartment(new Department
+            {
+                Name = department.Name,
+                Description = department.Description
+            });
+            return Created();
         }
 
         [HttpPut]
-        public IActionResult EditDepartment(Department department) 
+        public ActionResult EditDepartment(UpdateDepartmentDTO department) 
         {
-            departmentService.EditDepartment(department);
+            departmentService.EditDepartment(new Department
+            {
+                Id = department.Id,
+                Name = department.Name,
+                Description = department.Description
+            });
             return CreatedAtAction("GetById", department.Id);
         }
+        
         [HttpDelete]
-        public IActionResult DeleteDepartment(int departmentId)
+        public ActionResult DeleteDepartment(int departmentId)
         {
             departmentService.DeleteDepartment(departmentId);
             return Ok("Department deleted successfully");

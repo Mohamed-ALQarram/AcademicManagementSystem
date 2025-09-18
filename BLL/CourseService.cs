@@ -27,6 +27,12 @@ namespace BLL
             courseRepo.SaveChanges();
 
         }
+        public List<Course> GetAll()
+        {
+            var courses = courseRepo.GetAll().ToList();
+            if (courses == null) return new List<Course>();
+            return courses;
+        }
         public Course GetById(int CourseId)
         {
             var course = courseRepo.GetById(CourseId);

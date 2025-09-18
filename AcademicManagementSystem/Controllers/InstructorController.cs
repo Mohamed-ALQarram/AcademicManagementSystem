@@ -27,6 +27,25 @@ namespace AcademicManagementSystem.Controllers
         {
             return instructorService.GetInstructorById(Id);
         }
+        [HttpPost("MarkAttendance")]
+        public ActionResult<Instructor> MarkAttendance(CreateAttendanceDTO attendanceFromRequest)
+        {
+            instructorService.MarkAttendance(new Attendance
+            {
+                StudentId = attendanceFromRequest.StudentId,
+                SectionId = attendanceFromRequest.SectionId,
+                AttendStatus = attendanceFromRequest.Status,
+                Reason = attendanceFromRequest.Reason
+            });
+            return Created();
+        }
+
+        [HttpPost("AddGrade")]
+        public ActionResult<Instructor> AddGrade(AddGradeDTO grade)
+        {
+            instructorService.AddGrade(grade.StudentId, grade.CourseId, grade.Grade);
+            return Created();
+        }
 
         [HttpPost]
         public ActionResult<Instructor> AddInstructor(AddInstructorDTO instructorDTO)

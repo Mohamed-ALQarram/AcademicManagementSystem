@@ -33,7 +33,7 @@ namespace BLL
             roomRepo.Delete(RoomId);
             roomRepo.SaveChanges();
         }
-        public Room getRoomById(int RoomId)
+        public Room GetRoomById(int RoomId)
         {
             var Room = roomRepo.GetById(RoomId);
             if (Room != null)

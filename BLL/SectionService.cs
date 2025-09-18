@@ -55,6 +55,12 @@ namespace BLL
             sectionRepo.Update(section);
         }
     
+        public List<Section> getAllSections()
+        {
+            var sections = sectionRepo.GetAll().ToList();
+            if(sections == null) return new List<Section> ();
+            return sections;
+        }
         public List<Student> GetSectionStudents(int SectionId)
         {
             var Students = sectionRepo.GetSectionStudents(SectionId).ToList();

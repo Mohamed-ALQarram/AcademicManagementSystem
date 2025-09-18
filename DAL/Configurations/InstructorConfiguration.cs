@@ -24,6 +24,8 @@ namespace DAL.Configurations
                 .HasColumnType("nvarchar")
                 .HasMaxLength(50)
                 .IsRequired(true);
+            builder.Property(x => x.Salary)
+                .HasColumnType("decimal(12, 2)");
 
             builder.HasOne(x=>x.Department)
                 .WithMany(x=>x.Instructors)
