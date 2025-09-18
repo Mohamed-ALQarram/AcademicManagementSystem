@@ -17,10 +17,10 @@ It provides role-based access for **Admin**, **Instructor**, and **Student**.
 - **Authentication:** ASP.NET Identity (with roles: Admin, Instructor, Student)  
 
 ## Documentation
-For detailed system requirements, check [Requirements.md](./Requirements.md).
+For detailed system requirements, check [Requirements.md](./docs/Requirements.md).
 
 ## UML Class Diagram
 The following diagram represents the main entities and relationships:
-![UML Class Diagram](./docs/images/uml-class-diagram.png)
+![UML Class Diagram](./docs/Academic Management System UML Diagram.png)
 
 
