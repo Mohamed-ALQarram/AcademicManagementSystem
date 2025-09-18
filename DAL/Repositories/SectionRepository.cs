@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    internal class SectionRepository : SingleKeyRepository<Section>, ISectionRepository
+    public class SectionRepository : SingleKeyRepository<Section>, ISectionRepository
     {
         private readonly AppDbContext context;
 

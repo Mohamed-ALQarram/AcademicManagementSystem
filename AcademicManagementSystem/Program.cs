@@ -27,14 +27,9 @@ namespace AcademicManagementSystem
             builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
-            builder.Services.AddScoped<DepartmentService>();
-
-            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
-            builder.Services.AddScoped<InstructorService>();
-            builder.Services.AddScoped(typeof(ISingleKeyRepository<>), typeof(SingleKeyRepository<>));
-            builder.Services.AddScoped(typeof(ICompositeKeyRepository<,>), typeof(CompositeKeyRepository<,>));
-
+            // Register repositories and services
+            builder.Services.AddProjectRepositories();
+            builder.Services.AddProjectServices();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
