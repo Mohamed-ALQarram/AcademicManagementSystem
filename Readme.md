@@ -21,6 +21,6 @@ For detailed system requirements, check [Requirements.md](./docs/Requirements.md
 
 ## UML Class Diagram
 The following diagram represents the main entities and relationships:
-![UML Class Diagram](./docs/Academic Management System UML Diagram.png)
+![UML Class Diagram](./docs/Academic%20Management%20System%20UML%20Diagram.png)
 
 
